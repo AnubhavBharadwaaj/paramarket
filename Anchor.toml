@@ -1,0 +1,17 @@
+[features]
+seeds = false
+skip-lint = false
+
+[programs.devnet]
+paramarket = "HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN"
+paramarket_spike = "CWCzF6shQBeGYNJcwip62WvoBM1P6QHCbnGm5MB3c8Pm"
+
+[registry]
+url = "https://api.apr.dev"
+
+[provider]
+cluster = "devnet"
+wallet = "~/.config/solana/id.json"
+
+[scripts]
+test = "npm run test:spike"

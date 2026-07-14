@@ -1,0 +1,691 @@
+{
+  "generatedAt": "2026-07-14T05:16:56.700Z",
+  "source": "https://txline-dev.txodds.com/api/scores/historical/18213979",
+  "fixtureId": 18213979,
+  "events": [
+    {
+      "seq": 0,
+      "ts": 1783308790253,
+      "action": "coverage_update",
+      "gameState": "scheduled",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 0,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 0
+      }
+    },
+    {
+      "seq": 197,
+      "ts": 1783804811207,
+      "action": "goal_kick",
+      "gameState": "scheduled",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 0,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 225,
+      "ts": 1783805002458,
+      "action": "possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 0,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 253,
+      "ts": 1783805396648,
+      "action": "goal_kick",
+      "gameState": "scheduled",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 0,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 281,
+      "ts": 1783805603899,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 0,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 309,
+      "ts": 1783805782911,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 0,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 0,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 337,
+      "ts": 1783805980183,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 365,
+      "ts": 1783806131854,
+      "action": "safe_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 393,
+      "ts": 1783806303589,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 0
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 0
+      },
+      "corners": {
+        "home": 0,
+        "away": 1
+      }
+    },
+    {
+      "seq": 421,
+      "ts": 1783806535813,
+      "action": "kickoff",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 0,
+        "away": 2
+      }
+    },
+    {
+      "seq": 449,
+      "ts": 1783807607540,
+      "action": "substitution",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 0,
+        "away": 2
+      }
+    },
+    {
+      "seq": 477,
+      "ts": 1783807815707,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 0,
+        "away": 2
+      }
+    },
+    {
+      "seq": 505,
+      "ts": 1783807994450,
+      "action": "possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 0,
+        "away": 2
+      }
+    },
+    {
+      "seq": 533,
+      "ts": 1783808213223,
+      "action": "goal",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 3,
+        "away": 2
+      }
+    },
+    {
+      "seq": 561,
+      "ts": 1783808585909,
+      "action": "safe_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 4,
+        "away": 2
+      }
+    },
+    {
+      "seq": 589,
+      "ts": 1783808820692,
+      "action": "safe_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 4,
+        "away": 2
+      }
+    },
+    {
+      "seq": 617,
+      "ts": 1783809021680,
+      "action": "substitution",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 4,
+        "away": 2
+      }
+    },
+    {
+      "seq": 645,
+      "ts": 1783809354358,
+      "action": "high_danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 4,
+        "away": 2
+      }
+    },
+    {
+      "seq": 673,
+      "ts": 1783809559050,
+      "action": "high_danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 4,
+        "away": 2
+      }
+    },
+    {
+      "seq": 701,
+      "ts": 1783809755164,
+      "action": "high_danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 4,
+        "away": 2
+      }
+    },
+    {
+      "seq": 729,
+      "ts": 1783809968186,
+      "action": "safe_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 2
+      }
+    },
+    {
+      "seq": 757,
+      "ts": 1783810146372,
+      "action": "danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 2
+      }
+    },
+    {
+      "seq": 785,
+      "ts": 1783810379720,
+      "action": "additional_time",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 3
+      }
+    },
+    {
+      "seq": 813,
+      "ts": 1783810644919,
+      "action": "high_danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 3
+      }
+    },
+    {
+      "seq": 841,
+      "ts": 1783810879075,
+      "action": "status",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 3
+      }
+    },
+    {
+      "seq": 869,
+      "ts": 1783811316008,
+      "action": "danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 1
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 3
+      }
+    },
+    {
+      "seq": 897,
+      "ts": 1783811540472,
+      "action": "danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 4
+      }
+    },
+    {
+      "seq": 925,
+      "ts": 1783811717260,
+      "action": "possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 4
+      }
+    },
+    {
+      "seq": 941,
+      "ts": 1783811922740,
+      "action": "action_discarded",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 4
+      }
+    },
+    {
+      "seq": 953,
+      "ts": 1783811980248,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 5,
+        "away": 4
+      }
+    },
+    {
+      "seq": 981,
+      "ts": 1783812169532,
+      "action": "possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 6,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1009,
+      "ts": 1783812331043,
+      "action": "clock_adjustment",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 6,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1037,
+      "ts": 1783812716081,
+      "action": "safe_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 6,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1065,
+      "ts": 1783812842029,
+      "action": "attack_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 6,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1093,
+      "ts": 1783813046470,
+      "action": "high_danger_possession",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 6,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1121,
+      "ts": 1783813212464,
+      "action": "free_kick",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 7,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1149,
+      "ts": 1783813460260,
+      "action": "throw_in",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 7,
+        "away": 4
+      }
+    },
+    {
+      "seq": 1177,
+      "ts": 1783813584713,
+      "action": "throw_in",
+      "gameState": "scheduled",
+      "score": {
+        "home": 1,
+        "away": 2
+      },
+      "h1Goals": {
+        "home": 1,
+        "away": 1
+      },
+      "corners": {
+        "home": 7,
+        "away": 4
+      }
+    }
+  ]
+}

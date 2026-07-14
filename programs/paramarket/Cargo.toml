@@ -1,0 +1,22 @@
+[package]
+name = "paramarket"
+version = "0.1.0"
+description = "ParaMarket Stage 2 parametric market program"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "paramarket"
+
+[features]
+default = []
+no-entrypoint = []
+no-idl = []
+cpi = ["no-entrypoint"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.31.1"

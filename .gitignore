@@ -1,0 +1,9 @@
+node_modules/
+.txline-token.json
+*.log
+.next/
+target/
+*.tsbuildinfo
+.DS_Store
+target/deploy/*keypair*.json
+**/id.json

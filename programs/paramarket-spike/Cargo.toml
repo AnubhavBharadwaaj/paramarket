@@ -1,0 +1,22 @@
+[package]
+name = "paramarket-spike"
+version = "0.1.0"
+description = "Stage 1 CPI spike for arbitrary TxLINE validate_stat predicates"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib", "lib"]
+name = "paramarket_spike"
+
+[features]
+default = []
+no-entrypoint = []
+no-idl = []
+cpi = ["no-entrypoint"]
+anchor-debug = []
+custom-heap = []
+custom-panic = []
+idl-build = ["anchor-lang/idl-build"]
+
+[dependencies]
+anchor-lang = "0.31.1"
