@@ -35,6 +35,12 @@ settlement path.
 
 Requires Node 22+.
 
+Live deployment:
+
+```text
+https://txline-agent.vercel.app
+```
+
 ```bash
 npm install
 npm run stage4:assets
@@ -192,6 +198,14 @@ typecheck: PASS
 tests:     PASS (12/12)
 build:     PASS
 receipt simulation: returnValue=true
+```
+
+Current deployed-origin receipt check:
+
+```text
+https://txline-agent.vercel.app/stage4/receipt-proof.json
+returnValue=true
+Program log: paramarket settle_spike validate_stat=true
 ```
 
 After deployment, test the live Vercel URL in an incognito browser with no wallet.
