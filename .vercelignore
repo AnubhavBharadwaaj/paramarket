@@ -1,11 +1,13 @@
-node_modules/
-.txline-token.json
-*.log
+.git/
 .next/
 .vercel/
+node_modules/
 target/
+**/target/
 *.tsbuildinfo
 .DS_Store
+**/.DS_Store
+.txline-token.json
 target/deploy/*keypair*.json
 **/id.json
-.vercel
+txline-agent-stage0.zip
