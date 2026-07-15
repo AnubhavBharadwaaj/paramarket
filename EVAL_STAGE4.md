@@ -4,6 +4,8 @@ Deployed URL: https://txline-agent.vercel.app
 
 Wallet-free verification: the browser loads `public/stage4/receipt-proof.json` and simulates the real devnet CPI path with `simulateTransaction`, `sigVerify:false`, and no signer or wallet.
 
+Runtime dependency note: receipt proof and replay events are snapshotted static assets served by this app. The deployed verifier does not call `txline-dev.txodds.com`; it only calls Solana devnet RPC for simulation.
+
 Receipt proof:
 
 ```text

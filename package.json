@@ -12,6 +12,9 @@
     "smoke": "tsx src/client/smoke.ts",
     "stage4:assets": "tsx scripts/generate-stage4-assets.ts",
     "stage2:e2e": "tsx tests/paramarket.ts",
+    "check:evidence": "tsx scripts/check-evidence.ts",
+    "save:evidence": "tsx scripts/save-evidence.ts",
+    "refresh:evidence": "npm run stage2:e2e && npm run save:evidence && npm run check:evidence",
     "spike:settlement": "tsx src/client/settleSpike.ts",
     "typecheck": "tsc --noEmit"
   },

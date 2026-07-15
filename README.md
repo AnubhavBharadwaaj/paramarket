@@ -64,6 +64,10 @@ The first screen is the receipt verifier. Clicking **Verify receipt** simulates
 the deployed receipt CPI program against TxOracle devnet using the generated
 proof in `public/stage4/receipt-proof.json`.
 
+The live app does not call TxLINE APIs at runtime for this path. The proof bundle
+and replay tape are snapshotted static assets in `public/stage4/`; verification
+runs against Solana devnet state with `simulateTransaction`.
+
 Receipt predicate:
 
 ```text
@@ -127,6 +131,27 @@ Three full devnet lifecycles are captured in `EVAL_STAGE2.md`:
 | Single-stat over/under | `3ucd6d4AWSy86Rm7LesHBWpgBEzeMY4LWfTRDwv1Z1w1UKhBQitjXZnngvrBLo55b7dFj1W53gh3zfmEkph4vje5` | `4gWe45Q74LHRiLh1yv3YUDf6rRxUMP3Gic6JMBruZN1XqHwjdEf13ErzNygyeHKyLKQiTWViL4axtzpYHKPUmUsN` | `3dPLXU2N5Ak8x3DS93jZzEfsmtSPUqtpmAP9RkYSr6Jc7ZQuD4NdYuboe7N4gH5Nz8G9wQZDV5wUa6rhyoQD2dAe` |
 | Two-stat sum predicate | `5gUKJLbimxK9ptfh3puqXCUfHduxdgCdEjKxBA94vmWHknYYYLLoF3HhKFUawF99L2V21DmxbGvTNdE9u3rA4eCi` | `5b2NYByaYuCdz3xJhM2UoFwwgqNtBRHgwVftVgFozq6moQKdg1AfNp42MAReQqd4ery9LYLACZ2b5y347M4qCcGQ` | `5aXTakrhTjfpedRmWq6PgWDbjUG52ZqRQSyoXCzL5eLbTbgMvosvTuxdUCSrDKTfL9U57t8mUt1e2oogy6JJDYSx` |
 | Under/exact/over 3-way | `53HBasqoDf1KMFsC7hUmY9sMDx6mB4GwNozrNBatvpa4i8s9vqKbbG62L1LkRQtzsfecduZ31RNshNYsVBhWhxy8` | `4r9T3imD7jfpwsemA7gyGTo3ysncRE3cxC481yMfwiheHGemZWxggEYWjeSS5mLdKQqwXS81E4EVDyzgNikdsYTJ` | `5jmpuHm1t9aitUe3yeurpj3dGYTniKqqewMkqRuqeKC6THbCesdUDpKjifdmsfcdGebaiioS7hDNdyU9KBDX4r4U` |
+
+Devnet transaction history is not permanent. If an explorer link 404s, the
+signature may have aged out of public RPC history. The UI therefore reads these
+live Market PDA accounts directly and falls back to committed JSON transaction
+records in `evidence/` instead of showing dead links:
+
+| Template | Market PDA | Vault PDA |
+|---|---|---|
+| Single-stat over/under | `8JZmhpo2TEnbssA2RfDRbYwbvbawzHH5KeEiEZHNZv5w` | `342t8gWxytzF7m5wfzJjDX2BXfk6DPxnDQEhFQUQaemG` |
+| Two-stat sum predicate | `4mThnf3THGCxN3rRfkxCqMhLfXYEz9d3XamSJHZ4Bq3i` | `5Za2pg1bxyEHsnYXUAZHGuQqBmE38SY1mSpN8fsxfg2Z` |
+| Under/exact/over 3-way | `BeHTr9mTLxRNnyZtVVAaS5bmijJS8jMJ8PmLcCZC7HpW` | `6RU5bvuztUeoHNCk1Y3qe5CiBMu7iTqhKXHzQbDPD3oF` |
+
+Before judging, rerun:
+
+```bash
+npm run refresh:evidence
+```
+
+This is best effort: it refreshes evidence locally with a funded devnet wallet
+and saves transaction JSON, but it cannot guarantee public explorer retention or
+survive a full devnet reset.
 
 Guard-path reverts were verified with exact error codes:
 

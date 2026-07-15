@@ -1,0 +1,111 @@
+{
+  "signature": "5gUKJLbimxK9ptfh3puqXCUfHduxdgCdEjKxBA94vmWHknYYYLLoF3HhKFUawF99L2V21DmxbGvTNdE9u3rA4eCi",
+  "fetchedAt": "2026-07-15T02:24:45.808Z",
+  "cluster": "devnet",
+  "status": "live",
+  "transaction": {
+    "blockTime": 1783996482,
+    "meta": {
+      "computeUnitsConsumed": 14196,
+      "costUnits": 15919,
+      "err": null,
+      "fee": 5000,
+      "innerInstructions": [
+        {
+          "index": 0,
+          "instructions": [
+            {
+              "accounts": [
+                0,
+                1
+              ],
+              "data": "11115j6vWdU4UyBhG6eTdKFCyACBk2gd8Ase9pgUQVyDeghjBR9SVC3ZkbjxtXdz9GWYRU",
+              "programIdIndex": 3,
+              "stackHeight": 2
+            },
+            {
+              "accounts": [
+                0,
+                2
+              ],
+              "data": "111112GJ1Cfr4Mnah1YBPDnXiJiZF6iLU2WSRn5rMNc3q9NWxpaodgPyGFJ8gzafyzCqqR",
+              "programIdIndex": 3,
+              "stackHeight": 2
+            }
+          ]
+        }
+      ],
+      "loadedAddresses": {
+        "readonly": [],
+        "writable": []
+      },
+      "logMessages": [
+        "Program HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN invoke [1]",
+        "Program log: Instruction: InitializeMarket",
+        "Program 11111111111111111111111111111111 invoke [2]",
+        "Program 11111111111111111111111111111111 success",
+        "Program 11111111111111111111111111111111 invoke [2]",
+        "Program 11111111111111111111111111111111 success",
+        "Program HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN consumed 14196 of 200000 compute units",
+        "Program HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN success"
+      ],
+      "postBalances": [
+        10786339120,
+        2282880,
+        890880,
+        1,
+        1141440
+      ],
+      "postTokenBalances": [],
+      "preBalances": [
+        10789517880,
+        0,
+        0,
+        1,
+        1141440
+      ],
+      "preTokenBalances": [],
+      "rewards": [],
+      "status": {
+        "Ok": null
+      }
+    },
+    "slot": 476107046,
+    "transaction": {
+      "message": {
+        "header": {
+          "numReadonlySignedAccounts": 0,
+          "numReadonlyUnsignedAccounts": 2,
+          "numRequiredSignatures": 1
+        },
+        "accountKeys": [
+          "7cSRptYJT9dfm6Kw1gftkTK5YS67dCNFA5j8zgV8EB9t",
+          "4mThnf3THGCxN3rRfkxCqMhLfXYEz9d3XamSJHZ4Bq3i",
+          "5Za2pg1bxyEHsnYXUAZHGuQqBmE38SY1mSpN8fsxfg2Z",
+          "11111111111111111111111111111111",
+          "HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN"
+        ],
+        "recentBlockhash": "6z1H1Qj36owAdCwtPc4KWLHoz8xP1DS7WVbuG6S85XMr",
+        "instructions": [
+          {
+            "accounts": [
+              0,
+              1,
+              2,
+              3
+            ],
+            "data": "3k4gdtwqcUs6qQHpVdcQ6JDMt3SsnRFxxemdxRH1rYvzZhcxb5CZ3wsXa3QRxybv59s3zohTZkRFtnFsgwzL5JwKwcrHe76voKKv2YPRpcHJ8P9KHaCqeARMxy6E7GAnuD",
+            "programIdIndex": 4,
+            "stackHeight": 1
+          }
+        ],
+        "indexToProgramIds": {}
+      },
+      "signatures": [
+        "5gUKJLbimxK9ptfh3puqXCUfHduxdgCdEjKxBA94vmWHknYYYLLoF3HhKFUawF99L2V21DmxbGvTNdE9u3rA4eCi"
+      ]
+    },
+    "transactionIndex": 28,
+    "version": "legacy"
+  }
+}

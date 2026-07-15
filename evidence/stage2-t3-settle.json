@@ -1,0 +1,132 @@
+{
+  "signature": "4r9T3imD7jfpwsemA7gyGTo3ysncRE3cxC481yMfwiheHGemZWxggEYWjeSS5mLdKQqwXS81E4EVDyzgNikdsYTJ",
+  "fetchedAt": "2026-07-15T02:24:54.237Z",
+  "cluster": "devnet",
+  "status": "live",
+  "transaction": {
+    "blockTime": 1783996496,
+    "meta": {
+      "computeUnitsConsumed": 208309,
+      "costUnits": 210129,
+      "err": null,
+      "fee": 5000,
+      "innerInstructions": [
+        {
+          "index": 1,
+          "instructions": [
+            {
+              "accounts": [
+                4
+              ],
+              "data": "7bsAHNWVm7CQhRX1iRDC77Ymwsu7umYifjPLabepuiNKfUaetxEfhxjWmW2qjJzHAPDARMitx9NPfxVu6YYLMf1gwqQ7qHSm3Ln1WkozmJDcMfpaP9aXrjfTe8LsN31rsJetYHW5zHUeospgwyDUSVLYaPy5UAccQ2UJ7TQaaGhTv5zS6MjqWrtCM2yGtCMNbHRfF322SithkFDb8fmhQ7ta37kShdFvTMYTJLf7Rda9Q45CUSfmEC8aPyGVgVUki8WeUfLcMLDPEiy1YXhXihR1rMpZBJGTDQwDA5pSd3XsG2EVb259yYcQoWnbWiJ3fsWmRjNuRudd2boeN8aaX1ZA3YF6ZH7y85MSjPkUV4eUUKDdxePL2qCkeNhD3N1uhyE24hjj9EUyGzWcZY5VCu6aneQrV1o2fabsJ7nEhHBWzaVRsZBParJuRJxeHDy8ew1NUfziU3VZYtkNbJbSccYdAbVSfeDFmdzqEGvRAHNAnwrFoiEhyMAcuK8H6rYqvUhqWEi1Mwf9rA49qf9TjzeCFtsmr27tLLyWLk528DE1oMgG9cT9hWMP5riDcj1BTnQP3rUi2X2M9HFkqRDHxeGmPBgNrnMiUETJhZiUunaVpPDoNhCoTYavikohXw3d19i4Pt1BY6pWKDkTAVz2C8Y6H2i9uGeeSiZUcBwKXdhyZNNA3JJUtf3uCee3LVWWFJUuTdGDRDdYimH1QhkpPbsyX9vjJTCMXp8oN6CNA2GiSQbMgmzNJL1yNnimTLStQPSVkJBiKvscwivjAqgbqMYf3885AK9QykwWSxDTZBWJ8TAb2BPXNXvoPKDH89q2sTugaR6AGiSXnys9doX8RTWB7Sxn7P3dpV6sn3UZj8yuJNuTCr4muK5H",
+              "programIdIndex": 2,
+              "stackHeight": 2
+            }
+          ]
+        }
+      ],
+      "loadedAddresses": {
+        "readonly": [],
+        "writable": []
+      },
+      "logMessages": [
+        "Program ComputeBudget111111111111111111111111111111 invoke [1]",
+        "Program ComputeBudget111111111111111111111111111111 success",
+        "Program HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN invoke [1]",
+        "Program log: Instruction: SettleWithProof",
+        "Program 6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J invoke [2]",
+        "Program log: Instruction: ValidateStat",
+        "Program log: Receive score stat validation request with predicate",
+        "Program log: Verify account integrity",
+        "Program log: Find valid on-chain root for interval 279",
+        "Program log: Perform fixture-level validation",
+        "Program log: Pass fixture-level validation",
+        "Program log: Perform stage 1 validation",
+        "Program log: Perform two-stat predicate validation",
+        "Program log: Perform R2 validation",
+        "Program log: Perform stage 2 validation",
+        "Program log: Evaluate predicate to: true",
+        "Program log: Return on-chain predicate",
+        "Program 6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J consumed 199029 of 992546 compute units",
+        "Program return: 6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J AQ==",
+        "Program 6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J success",
+        "Program HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN consumed 208159 of 999850 compute units",
+        "Program return: HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN AQ==",
+        "Program HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN success"
+      ],
+      "postBalances": [
+        10753678160,
+        2282880,
+        5001141440,
+        1,
+        65145600,
+        1141440
+      ],
+      "postTokenBalances": [],
+      "preBalances": [
+        10753683160,
+        2282880,
+        5001141440,
+        1,
+        65145600,
+        1141440
+      ],
+      "preTokenBalances": [],
+      "returnData": {
+        "data": [
+          "AQ==",
+          "base64"
+        ],
+        "programId": "6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J"
+      },
+      "rewards": [],
+      "status": {
+        "Ok": null
+      }
+    },
+    "slot": 476107084,
+    "transaction": {
+      "message": {
+        "header": {
+          "numReadonlySignedAccounts": 0,
+          "numReadonlyUnsignedAccounts": 4,
+          "numRequiredSignatures": 1
+        },
+        "accountKeys": [
+          "7cSRptYJT9dfm6Kw1gftkTK5YS67dCNFA5j8zgV8EB9t",
+          "BeHTr9mTLxRNnyZtVVAaS5bmijJS8jMJ8PmLcCZC7HpW",
+          "6pW64gN1s2uqjHkn1unFeEjAwJkPGHoppGvS715wyP2J",
+          "ComputeBudget111111111111111111111111111111",
+          "EdJuEftTBNwXRWJpvYCziVxKT87qMDVu9V6HC7PwGffB",
+          "HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN"
+        ],
+        "recentBlockhash": "5grsEAjGUwV1YYWppbo7eDndhxUjYHExng7kPtVg2Lsz",
+        "instructions": [
+          {
+            "accounts": [],
+            "data": "FjL4FH",
+            "programIdIndex": 3,
+            "stackHeight": 1
+          },
+          {
+            "accounts": [
+              0,
+              1,
+              4,
+              2
+            ],
+            "data": "B5uxTi5V8uN4DCqL4cZNyzX11uQtdrgmiNi5H4XwMn7nLDFFFNgLDd2YQ4yMQhf8T7bkLJouYieuSXT1DHWtr8dCrYixcBNJwrenqi4GoChYDBfLcur1WdLeeKgTQL7dnxw82pMdiX6SpxiKpVuuPmLn1CYkRzpZR89di9dwu2hyWvKk35pM6o3WYRmZvFUzdxe5UxUjPJmVPQJx9kdWVbqyefwFEnU6Du9KfJyajoNCJUTdq3W624bew7s2uYZUnkCQKcpH1AQQm3WnBaWGBEPW63BwHi1AB7sgC35ytdh7tq3i6n3RCAbPiPCqCNxPE73HUSbhiUMnTgT3wxeRNGDhmmmgpyqBHZUWLAoovJFvsjrzA2kkWirMyQhzMVpQotSEob3qZW1KczMZGAPovVe3hBLB1vEwhM4RWdHfWipoRRPALTcAb7Wy1eT2H6qk5zpDsRzqTiEVsF2CDY1Vak9H4SRX1NDys3PVuUQmqhjpyQbfLLWtgebHDHMxbXCyZRgafpiRWQGWQopeBu5C9fJkGR5B65ABtj1sBXQ1SU9wGtxWjdizhcETzbQGjE9HNkNecmyMhyyb8Sb46hCtMYk7Rywdu5KkgiP8b5fpqUmEXb55W4H4XjUtcKVr45VSoAKxguC9xbkCw19TL8zT85pyurD5M4YmNxoFT5ethmyf64abwCk3ZN3hfSQGhBGsvuhoFQWBkCEB7rFVda3MXCYKVkxqZwagZkSJUSor63bkZjfLCYuyu5e2DHKye1uBXP5QweCAVBd6D78bpzFtccu9ztzQ5oxAiGQybt7RQJytfCmTbrcyuijV7R5MJ8iQE1SVkE1vXUpMGSiDQLtPvD1Z8JKAASdPGMuxVGprTBTJ21GYCqSMMqQKq",
+            "programIdIndex": 5,
+            "stackHeight": 1
+          }
+        ],
+        "indexToProgramIds": {}
+      },
+      "signatures": [
+        "4r9T3imD7jfpwsemA7gyGTo3ysncRE3cxC481yMfwiheHGemZWxggEYWjeSS5mLdKQqwXS81E4EVDyzgNikdsYTJ"
+      ]
+    },
+    "transactionIndex": 2,
+    "version": "legacy"
+  }
+}

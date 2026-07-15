@@ -1,55 +1,244 @@
-import { ExternalLink, WalletCards } from "lucide-react";
-import { explorerTx, PARAMARKET_PROGRAM_ID } from "../lib/constants";
+"use client";
 
-const rows = [
-  {
-    name: "T1 single-stat over/under",
-    init: "3ucd6d4DRXJDHHhcfPDAUKChhpPLWRN8esEmn9wCWtqkf7MqYwybhM4uDb4ntuhYBxy8DtKJPf35K7ZDL5dXccqR",
-    settle: "4gWe45YiDP3UjbQ1rFzWpEG5tQ3n3RbQWJJS6WQpbhifgdA3Epj4kdxmkRmNntrACVhsykTPgLVM5Zstt5W5nmx6",
-    claim: "3dPLXUiRAd7SnwLU22z4oBksKgtmj7zYuwLVEpESN6wj2qesEP4hpSk2hJHgQ99KmcEwXxbj2wo2XFfHtKtY53v7",
-  },
-  {
-    name: "T2 two-stat sum predicate",
-    init: "5gUKJLewf4Txx4bWFZWRh32Jhmz4vSGSMMU721feHpXJ6HRc72UULYyGd6DgRT8Co5gZZquqQ3Zv8YWxjQzsfBmB",
-    settle: "5b2NYByaYuCdz3xJhM2UoFwwgqNtBRHgwVftVgFozq6moQKdg1AfNp42MAReQqd4ery9LYLACZ2b5y347M4qCcGQ",
-    claim: "5aXTakauqFoNmBBBYFZdUFeNhZKfQGKP4ccPk7Ra3uKW56RyMiZxMUmvEbCb9gfwcENBLkJ7mptxZ7iw2cbdHbGm",
-  },
-  {
-    name: "T3 under/exact/over 3-way",
-    init: "53HBasPqgtvVLbKWRdNVD75CstxZHDUvC7E4q4W5VSpz9LyVtAiDCsQvMNGYJRP78m6JvLsgACDG5hDYhcHWu8mg",
-    settle: "4r9T3UPYcNJx7sB5ajCNADk6tkS8LNWnE89KgdDj4qPhHkNFPxT9Cb3h2YtXKPzohk27uQ5ZhX4oJxQSFPTz1TvL",
-    claim: "5jmpuHYrU3Jnnu8yUNSyYTgFYQNSE8gWgAm3qgTTTqqGMiNMAmLqVr7md3sCz86pFBaCzF6rtEazGpCQn1TaK3wQ",
-  },
-];
+import { useEffect, useMemo, useState } from "react";
+import { DatabaseZap, ExternalLink, FileJson, WalletCards } from "lucide-react";
+import { explorerTx, PARAMARKET_PROGRAM_ID } from "../lib/constants";
+import {
+  CORE_ACCOUNTS,
+  MARKET_EVIDENCE,
+  accountExplorer,
+  checkTransaction,
+  evidenceUrl,
+  fetchMarketState,
+  solanaFmTx,
+  type DecodedMarketState,
+  type MarketEvidence,
+  type TxStatus,
+} from "../lib/marketEvidence";
+
+type MarketStatus = {
+  state: DecodedMarketState | null;
+  accountStatus: "checking" | "live" | "missing" | "error";
+  txs: Record<keyof MarketEvidence["txs"], TxStatus>;
+};
+
+const txKinds: Array<keyof MarketEvidence["txs"]> = ["init", "settle", "claim"];
+
+function short(s: string) {
+  return `${s.slice(0, 7)}...${s.slice(-4)}`;
+}
+
+function formatLamports(value: string) {
+  const lamports = Number(value);
+  if (!Number.isFinite(lamports)) return value;
+  return `${(lamports / 1_000_000_000).toFixed(4)} SOL`;
+}
+
+function predicateText(state: DecodedMarketState | null) {
+  if (!state) return "loading market spec";
+  const right = state.statKeyB ? ` ${state.op ?? ""} stat ${state.statKeyB}` : "";
+  return `stat ${state.statKeyA}${right} ${state.comparison} ${state.threshold}`;
+}
+
+function TxEvidenceLink({
+  market,
+  kind,
+  status,
+}: {
+  market: MarketEvidence;
+  kind: keyof MarketEvidence["txs"];
+  status: TxStatus;
+}) {
+  const sig = market.txs[kind];
+  const file = `${market.evidencePrefix}-${kind}.json`;
+  if (status === "live") {
+    return (
+      <>
+      <a href={explorerTx(sig)} target="_blank" rel="noreferrer" title={sig}>
+        {kind} <ExternalLink size={13} />
+      </a>
+      <a href={solanaFmTx(sig)} target="_blank" rel="noreferrer" title={sig}>
+        fm <ExternalLink size={13} />
+      </a>
+      </>
+    );
+  }
+  return (
+    <a href={evidenceUrl(file)} target="_blank" rel="noreferrer" title={`${sig} is ${status}`}>
+      {kind} JSON <FileJson size={13} />
+    </a>
+  );
+}
+
+function MarketStateCard({ market, status }: { market: MarketEvidence; status: MarketStatus }) {
+  const state = status.state;
+  const displayLabels = state?.outcomeLabels.some(Boolean) ? state.outcomeLabels : market.outcomeLabels;
+  const winningLabel =
+    state?.winningOutcome === null || state?.winningOutcome === undefined
+      ? "-"
+      : `${state.winningOutcome} (${displayLabels[state.winningOutcome] ?? "unknown"})`;
+
+  return (
+    <article className="market-state-card">
+      <div className="market-state-head">
+        <div>
+          <strong>{market.name}</strong>
+          <span>{predicateText(state)}</span>
+        </div>
+        <span className={`state-badge ${status.accountStatus}`}>
+          {status.accountStatus === "live" ? "PDA live" : status.accountStatus}
+        </span>
+      </div>
+
+      <dl className="state-grid">
+        <div>
+          <dt>settled</dt>
+          <dd>{state ? String(state.settled) : "-"}</dd>
+        </div>
+        <div>
+          <dt>winner</dt>
+          <dd>{winningLabel}</dd>
+        </div>
+        <div>
+          <dt>total pool</dt>
+          <dd>{state ? formatLamports(state.totalPoolLamports) : "-"}</dd>
+        </div>
+        <div>
+          <dt>fixture</dt>
+          <dd>{state?.fixtureId ?? "-"}</dd>
+        </div>
+      </dl>
+
+      <div className="pool-list">
+        {displayLabels.map((label, index) => (
+          <div key={`${market.id}-${label}-${index}`}>
+            <span>{index}: {label}</span>
+            <strong>{state ? formatLamports(state.poolTotalsLamports[index] ?? "0") : "-"}</strong>
+          </div>
+        ))}
+      </div>
+
+      <div className="account-links">
+        <a href={accountExplorer(market.marketPda)} target="_blank" rel="noreferrer">
+          Market PDA {short(market.marketPda)} <ExternalLink size={13} />
+        </a>
+        <a href={accountExplorer(market.vaultPda)} target="_blank" rel="noreferrer">
+          Vault {short(market.vaultPda)} <ExternalLink size={13} />
+        </a>
+      </div>
+
+      <div className="tx-links">
+        {txKinds.map((kind) => (
+          <TxEvidenceLink key={kind} market={market} kind={kind} status={status.txs[kind]} />
+        ))}
+      </div>
+    </article>
+  );
+}
 
 export function MarketLifecycle() {
+  const [statuses, setStatuses] = useState<Record<string, MarketStatus>>(() =>
+    Object.fromEntries(
+      MARKET_EVIDENCE.map((market) => [
+        market.id,
+        {
+          state: null,
+          accountStatus: "checking",
+          txs: { init: "checking", settle: "checking", claim: "checking" },
+        },
+      ])
+    )
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    for (const market of MARKET_EVIDENCE) {
+      fetchMarketState(market.marketPda)
+        .then((state) => {
+          if (cancelled) return;
+          setStatuses((prev) => ({
+            ...prev,
+            [market.id]: {
+              ...prev[market.id],
+              state,
+              accountStatus: state ? "live" : "missing",
+            },
+          }));
+        })
+        .catch(() => {
+          if (cancelled) return;
+          setStatuses((prev) => ({
+            ...prev,
+            [market.id]: { ...prev[market.id], accountStatus: "error" },
+          }));
+        });
+
+      for (const kind of txKinds) {
+        checkTransaction(market.txs[kind]).then((status) => {
+          if (cancelled) return;
+          setStatuses((prev) => ({
+            ...prev,
+            [market.id]: {
+              ...prev[market.id],
+              txs: { ...prev[market.id].txs, [kind]: status },
+            },
+          }));
+        });
+      }
+    }
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const anyPruned = useMemo(
+    () =>
+      Object.values(statuses).some((status) =>
+        Object.values(status.txs).some((txStatus) => txStatus === "pruned" || txStatus === "error")
+      ),
+    [statuses]
+  );
+
   return (
     <section className="lifecycle-panel" aria-labelledby="lifecycle-title">
       <div className="panel-kicker">
         <WalletCards size={18} />
-        stage 2 market lifecycle
+        durable market evidence
       </div>
-      <h2 id="lifecycle-title">The market path is already green on devnet.</h2>
+      <h2 id="lifecycle-title">The market state is read live from devnet.</h2>
       <p>
-        This UI keeps settlement architecture unchanged: binary markets are over/under, the 3-way market is
-        under/exact/over, and claims pay from the parimutuel vault after proof settlement.
+        Transaction links are useful but devnet prunes history. The cards below fetch and decode each Market
+        PDA directly, with settled state, winning outcome, and pool totals shown without a wallet.
       </p>
-      <div className="tx-table">
-        {rows.map((row) => (
-          <div className="tx-row" key={row.name}>
-            <strong>{row.name}</strong>
-            <a href={explorerTx(row.init)} target="_blank" rel="noreferrer">
-              init <ExternalLink size={14} />
-            </a>
-            <a href={explorerTx(row.settle)} target="_blank" rel="noreferrer">
-              settle <ExternalLink size={14} />
-            </a>
-            <a href={explorerTx(row.claim)} target="_blank" rel="noreferrer">
-              claim <ExternalLink size={14} />
-            </a>
-          </div>
+
+      <div className="durability-note">
+        Devnet prunes old transactions from the public explorer and resets periodically. If a signature ages out,
+        the account state above and the receipt verifier run live against current chain state; full transaction
+        records are committed in the repo under <span className="mono">evidence/</span>.
+      </div>
+
+      {anyPruned && (
+        <div className="prune-alert">
+          Some transaction history is unavailable from public RPC right now. JSON evidence links are shown instead
+          of dead explorer links.
+        </div>
+      )}
+
+      <div className="market-state-list">
+        {MARKET_EVIDENCE.map((market) => (
+          <MarketStateCard key={market.id} market={market} status={statuses[market.id]} />
         ))}
       </div>
+
+      <div className="core-account-links">
+        {CORE_ACCOUNTS.map((account) => (
+          <a href={accountExplorer(account.address)} target="_blank" rel="noreferrer" key={account.address}>
+            <DatabaseZap size={14} />
+            {account.label} {short(account.address)}
+          </a>
+        ))}
+      </div>
+
       <div className="program-line">Paramarket program: {PARAMARKET_PROGRAM_ID}</div>
     </section>
   );

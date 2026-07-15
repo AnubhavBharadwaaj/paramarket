@@ -5,6 +5,10 @@ Date: 2026-07-14
 Program: `paramarket`
 Program id: `HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN`
 
+Durability note: devnet public RPC prunes old transaction history and devnet can
+reset. The live app now reads Market PDA state directly and links to committed
+`evidence/*.json` transaction records if a signature is pruned.
+
 Redeploy:
 - Extend: `solana program extend HPzBCd83X61od45nq2ofu4G1sRMiguuvZk87vGqsmxtN 12000 --url devnet`
 - Deploy tx: `24yVdhxfkuAdtKT7UAK1Qw1zKr4rP96c7whnGwdpkrpPxCgFDAW8RqZzxbcGbxmXd7s2YbcvDN33XMd4SDq2g4Du`
@@ -94,3 +98,24 @@ non-winner claim -> NothingToClaim
 - `anchor build`: PASS
 - `npm run stage2:e2e`: PASS
 
+## Durable Account Evidence
+
+| Template | Market PDA | Vault PDA | Live state expected |
+|---|---|---|---|
+| Single-stat over/under | `8JZmhpo2TEnbssA2RfDRbYwbvbawzHH5KeEiEZHNZv5w` | `342t8gWxytzF7m5wfzJjDX2BXfk6DPxnDQEhFQUQaemG` | `settled=true`, `winning_outcome=0` |
+| Two-stat sum predicate | `4mThnf3THGCxN3rRfkxCqMhLfXYEz9d3XamSJHZ4Bq3i` | `5Za2pg1bxyEHsnYXUAZHGuQqBmE38SY1mSpN8fsxfg2Z` | `settled=true`, `winning_outcome=0` |
+| Under/exact/over 3-way | `BeHTr9mTLxRNnyZtVVAaS5bmijJS8jMJ8PmLcCZC7HpW` | `6RU5bvuztUeoHNCk1Y3qe5CiBMu7iTqhKXHzQbDPD3oF` | `settled=true`, `winning_outcome=1` |
+
+Committed transaction records:
+
+```text
+evidence/stage2-t1-init.json
+evidence/stage2-t1-settle.json
+evidence/stage2-t1-claim.json
+evidence/stage2-t2-init.json
+evidence/stage2-t2-settle.json
+evidence/stage2-t2-claim.json
+evidence/stage2-t3-init.json
+evidence/stage2-t3-settle.json
+evidence/stage2-t3-claim.json
+```
