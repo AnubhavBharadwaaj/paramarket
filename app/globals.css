@@ -265,6 +265,70 @@ pre {
   color: #6c2d06;
 }
 
+.tamper-panel {
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  margin-top: 26px;
+  padding: 14px;
+}
+
+.tamper-panel strong {
+  display: block;
+  font-size: 1rem;
+}
+
+.tamper-panel p {
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 5px;
+}
+
+.tamper-actions {
+  display: grid;
+  gap: 8px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  margin-top: 12px;
+}
+
+.tamper-button {
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  color: var(--ink);
+  cursor: pointer;
+  display: grid;
+  gap: 3px;
+  min-height: 58px;
+  padding: 10px;
+  text-align: left;
+}
+
+.tamper-button span {
+  font-weight: 900;
+}
+
+.tamper-button small {
+  color: var(--muted);
+  font-size: 0.76rem;
+  line-height: 1.3;
+}
+
+.tamper-button.active {
+  background: #fff3eb;
+  border-color: #f0b999;
+  color: #7a2e0a;
+}
+
+.tamper-button.restore {
+  background: var(--accent-soft);
+  border-color: rgba(15, 122, 95, 0.28);
+}
+
+.tamper-button:disabled {
+  cursor: wait;
+  opacity: 0.64;
+}
+
 .proof-reconstruction {
   background:
     linear-gradient(180deg, rgba(255, 255, 255, 0.82), rgba(249, 251, 247, 0.98)),
@@ -440,6 +504,11 @@ pre {
   padding: 14px;
 }
 
+.paper-receipt.rejected {
+  background: #fff8f4;
+  border-color: #d97f55;
+}
+
 .receipt-title {
   align-items: center;
   display: flex;
@@ -491,6 +560,15 @@ pre {
 .verified-stamp.fail {
   border-color: #b42318;
   color: #b42318;
+}
+
+.rejected-output {
+  background: #35130c;
+  color: #fff4ed;
+}
+
+.rejected-output .output-head span {
+  color: #f3c7b4;
 }
 
 .proof-hint {
@@ -866,7 +944,8 @@ pre {
 
   .predicate-strip,
   .merkle-node,
-  .paper-receipt dl div {
+  .paper-receipt dl div,
+  .tamper-actions {
     grid-template-columns: 1fr;
   }
 

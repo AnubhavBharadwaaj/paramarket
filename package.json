@@ -15,6 +15,7 @@
     "check:evidence": "tsx scripts/check-evidence.ts",
     "save:evidence": "tsx scripts/save-evidence.ts",
     "refresh:evidence": "npm run stage2:e2e && npm run save:evidence && npm run check:evidence",
+    "probe:tampers": "tsx scripts/probe-tampers.ts",
     "spike:settlement": "tsx src/client/settleSpike.ts",
     "typecheck": "tsc --noEmit"
   },

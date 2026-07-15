@@ -18,11 +18,44 @@ import {
   STAGE1_TRUE_TX,
   TXORACLE_PROGRAM_ID,
 } from "../lib/constants";
-import { loadReceiptProof, simulateReceipt, type VerifyResult } from "../lib/receiptVerifier";
+import {
+  loadReceiptProof,
+  simulateReceipt,
+  simulateTamperedReceipt,
+  type TamperKind,
+  type TamperResult,
+  type VerifyResult,
+} from "../lib/receiptVerifier";
 
 type ProofAsset = Awaited<ReturnType<typeof loadReceiptProof>>;
 
 type RevealState = "idle" | "reconstructing" | "verified" | "failed";
+
+const tamperOptions: Array<{
+  kind: TamperKind;
+  label: string;
+  expected: string;
+  description: string;
+}> = [
+  {
+    kind: "wrongTimestamp",
+    label: "Wrong timestamp",
+    expected: "TimestampMismatch",
+    description: "minTimestamp -> raw API ts",
+  },
+  {
+    kind: "wrongStatKey",
+    label: "Wrong stat key",
+    expected: "InvalidStatProof",
+    description: "stat 1002 -> stat 1001",
+  },
+  {
+    kind: "wrongFixture",
+    label: "Wrong fixture",
+    expected: "InvalidMainTreeProof",
+    description: "fixture 18213979 -> 999999",
+  },
+];
 
 function sleep(ms: number, skipRef: MutableRefObject<boolean>) {
   if (skipRef.current || ms <= 0) return Promise.resolve();
@@ -36,6 +69,8 @@ function hashLabel(bytes: number[]) {
 export function ReceiptVerifier() {
   const [proof, setProof] = useState<ProofAsset | null>(null);
   const [result, setResult] = useState<VerifyResult | null>(null);
+  const [tamperResult, setTamperResult] = useState<TamperResult | null>(null);
+  const [activeTamper, setActiveTamper] = useState<TamperKind | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
   const [revealState, setRevealState] = useState<RevealState>("idle");
@@ -85,12 +120,15 @@ export function ReceiptVerifier() {
   }, [proof]);
 
   const sum = proof ? proof.proof.statToProve.value + proof.proof.statToProve2.value : 0;
-  const verified = result?.ok === true;
+  const verified = result?.ok === true && !tamperResult;
+  const rejected = Boolean(tamperResult);
 
   async function verify() {
     if (!proof) return;
 
     if (result) {
+      setTamperResult(null);
+      setActiveTamper(null);
       skipRef.current = true;
       setRevealState(result.ok ? "verified" : "failed");
       setActiveStep(4);
@@ -101,6 +139,8 @@ export function ReceiptVerifier() {
     skipRef.current = false;
     setLoading(true);
     setError(null);
+    setTamperResult(null);
+    setActiveTamper(null);
     setResult(null);
     setRevealState("reconstructing");
     setActiveStep(0);
@@ -135,13 +175,67 @@ export function ReceiptVerifier() {
     if (activeStep < 3) setActiveStep(3);
   }
 
+  async function tamper(kind: TamperKind) {
+    if (!proof || loading) return;
+    skipRef.current = false;
+    setLoading(true);
+    setError(null);
+    setTamperResult(null);
+    setActiveTamper(kind);
+    setRevealState("reconstructing");
+    setActiveStep(0);
+    setRevealedNodes(0);
+    try {
+      await sleep(320, skipRef);
+      setActiveStep(1);
+      for (let index = 1; index <= proofNodes.length; index += 1) {
+        setRevealedNodes(index);
+        await sleep(index === proofNodes.length ? 120 : 48, skipRef);
+      }
+      setActiveStep(2);
+      await sleep(360, skipRef);
+      setActiveStep(3);
+      const rejectedProof = await simulateTamperedReceipt(proof, kind);
+      setTamperResult(rejectedProof);
+      setActiveStep(4);
+      setRevealState("failed");
+    } catch (err) {
+      setActiveStep(4);
+      setRevealState("failed");
+      setError(err instanceof Error ? err.message : String(err));
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  async function restoreGoodProof() {
+    setTamperResult(null);
+    setActiveTamper(null);
+    setError(null);
+    if (result) {
+      setRevealState("verified");
+      setActiveStep(4);
+      setRevealedNodes(proofNodes.length);
+      return;
+    }
+    await verify();
+  }
+
   const steps = [
     "Fetch proof",
     "Rebuild Merkle path",
     "Evaluate predicate",
     "Simulate TxOracle CPI",
-    result?.ok ? "Verified on-chain" : "Await return value",
+    tamperResult ? "Rejected by chain" : result?.ok ? "Verified on-chain" : "Await return value",
   ];
+  const activeTamperCopy = tamperOptions.find((option) => option.kind === activeTamper);
+  const predicateResultText = tamperResult
+    ? tamperResult.guardName
+    : activeTamperCopy && activeStep >= 2
+      ? activeTamperCopy.expected
+      : proof && activeStep >= 2
+        ? `${proof.proof.statToProve.value} + ${proof.proof.statToProve2.value} == ${sum}`
+        : "pending";
 
   return (
     <section className="receipt-panel" aria-labelledby="receipt-title">
@@ -172,12 +266,43 @@ export function ReceiptVerifier() {
               <ExternalLink size={16} />
             </a>
           </div>
+
+          <div className="tamper-panel">
+            <div>
+              <strong>Don&apos;t trust us. Try to break it.</strong>
+              <p>Every other market shows you a green check. Change one field and watch this one fail.</p>
+            </div>
+            <div className="tamper-actions">
+              {tamperOptions.map((option) => (
+                <button
+                  className={activeTamper === option.kind ? "tamper-button active" : "tamper-button"}
+                  disabled={!proof || loading}
+                  key={option.kind}
+                  onClick={() => tamper(option.kind)}
+                  type="button"
+                >
+                  <span>{option.label}</span>
+                  <small>{option.description}</small>
+                </button>
+              ))}
+              <button className="tamper-button restore" disabled={!proof || loading} onClick={restoreGoodProof} type="button">
+                <span>Restore good proof</span>
+                <small>return to VERIFIED</small>
+              </button>
+            </div>
+          </div>
         </div>
         <div className={`proof-reconstruction ${revealState}`}>
           <div className="receipt-top" aria-hidden="true" />
           <div className="status-line">
             <span className={verified ? "dot good" : revealState === "failed" ? "dot bad" : "dot"} />
-            {verified ? "Verified on devnet simulation" : loading ? "Reconstructing proof" : "Ready to verify"}
+            {verified
+              ? "Verified on devnet simulation"
+              : rejected
+                ? "Rejected by devnet simulation"
+                : loading
+                  ? "Reconstructing proof"
+                  : "Ready to verify"}
           </div>
 
           <div className="proof-steps" aria-label="Verification steps">
@@ -194,11 +319,7 @@ export function ReceiptVerifier() {
 
           <div className="predicate-strip">
             <span>{activeStep >= 0 ? predicate : "proof waits inside the receipt"}</span>
-            <strong className={activeStep >= 2 ? "lit" : ""}>
-              {proof && activeStep >= 2
-                ? `${proof.proof.statToProve.value} + ${proof.proof.statToProve2.value} == ${sum}`
-                : "pending"}
-            </strong>
+            <strong className={activeStep >= 2 ? "lit" : ""}>{predicateResultText}</strong>
           </div>
 
           <div className="merkle-ladder" aria-label="Merkle proof path">
@@ -211,16 +332,22 @@ export function ReceiptVerifier() {
             ))}
           </div>
 
-          <div className={`paper-receipt ${verified ? "verified" : ""}`}>
+          <div className={`paper-receipt ${verified ? "verified" : rejected ? "rejected" : ""}`}>
             <div className="receipt-title">
               <ReceiptText size={17} />
-              ParaMarket proof receipt
+              {rejected ? "Tampered proof receipt" : "ParaMarket proof receipt"}
             </div>
             <dl>
               <div>
                 <dt>Predicate</dt>
                 <dd>{predicate}</dd>
               </div>
+              {(tamperResult || activeTamperCopy) && (
+                <div>
+                  <dt>Tamper</dt>
+                  <dd>{tamperResult?.diff ?? activeTamperCopy?.description}</dd>
+                </div>
+              )}
               <div>
                 <dt>Daily root PDA</dt>
                 <dd>{DAILY_ROOT_PDA.slice(0, 12)}...{DAILY_ROOT_PDA.slice(-6)}</dd>
@@ -231,15 +358,27 @@ export function ReceiptVerifier() {
               </div>
               <div>
                 <dt>Return</dt>
-                <dd>{result ? String(result.returnValue) : activeStep >= 3 ? "simulating..." : "pending"}</dd>
+                <dd>{tamperResult ? "false / error" : result ? String(result.returnValue) : activeStep >= 3 ? "simulating..." : "pending"}</dd>
               </div>
+              {tamperResult && (
+                <div>
+                  <dt>Guard</dt>
+                  <dd>{tamperResult.guardName}</dd>
+                </div>
+              )}
               <div>
                 <dt>Slot</dt>
-                <dd>{result ? result.slot.toLocaleString() : "-"}</dd>
+                <dd>{tamperResult ? tamperResult.slot.toLocaleString() : result ? result.slot.toLocaleString() : "-"}</dd>
               </div>
               <div>
                 <dt>Compute</dt>
-                <dd>{result?.unitsConsumed ? `${result.unitsConsumed.toLocaleString()} CU` : "-"}</dd>
+                <dd>
+                  {tamperResult?.unitsConsumed
+                    ? `${tamperResult.unitsConsumed.toLocaleString()} CU`
+                    : result?.unitsConsumed
+                      ? `${result.unitsConsumed.toLocaleString()} CU`
+                      : "-"}
+                </dd>
               </div>
             </dl>
             <div className={`verified-stamp ${verified ? "show" : revealState === "failed" ? "fail" : ""}`}>
@@ -247,6 +386,11 @@ export function ReceiptVerifier() {
                 <>
                   <CheckCircle2 size={18} />
                   VERIFIED ON-CHAIN
+                </>
+              ) : rejected ? (
+                <>
+                  <XCircle size={18} />
+                  REJECTED BY CHAIN
                 </>
               ) : revealState === "failed" ? (
                 <>
@@ -268,7 +412,7 @@ export function ReceiptVerifier() {
         </div>
       </div>
 
-      {result && (
+      {result && !tamperResult && (
         <div className="verify-output">
           <div className="output-head">
             <Terminal size={17} />
@@ -277,6 +421,17 @@ export function ReceiptVerifier() {
             {result.unitsConsumed ? <span>{result.unitsConsumed.toLocaleString()} CU</span> : null}
           </div>
           <pre>{result.verdictLog}</pre>
+        </div>
+      )}
+      {tamperResult && (
+        <div className="verify-output rejected-output">
+          <div className="output-head">
+            <XCircle size={17} />
+            guard: <strong>{tamperResult.guardName}</strong>
+            <span>slot {tamperResult.slot.toLocaleString()}</span>
+            {tamperResult.unitsConsumed ? <span>{tamperResult.unitsConsumed.toLocaleString()} CU</span> : null}
+          </div>
+          <pre>{tamperResult.guardLog}</pre>
         </div>
       )}
       {error && <div className="error-box">{error}</div>}
