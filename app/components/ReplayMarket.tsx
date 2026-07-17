@@ -34,6 +34,15 @@ function quote(event: ReplayEvent) {
   return [price(q, 0, DEFAULT_LIQUIDITY), price(q, 1, DEFAULT_LIQUIDITY)];
 }
 
+function boothLine(event: ReplayEvent | null) {
+  if (!event) return "Replay Booth is waiting for the match tape.";
+  const total = event.score.home + event.score.away;
+  if (total === 0) return "0-0: line still live.";
+  if (total === 1) return "1-0: Over 2.5 pressure rises.";
+  if (total === 2) return "1-1: one more goal resolves.";
+  return "1-2: outcome locked, proof can settle.";
+}
+
 export function ReplayMarket() {
   const [events, setEvents] = useState<ReplayEvent[]>([]);
   const [idx, setIdx] = useState(0);
@@ -124,6 +133,10 @@ export function ReplayMarket() {
               aria-label={`Jump to sequence ${item.seq}`}
             />
           ))}
+        </div>
+        <div className="replay-booth">
+          <strong>Replay Booth</strong>
+          <span>{boothLine(event)}</span>
         </div>
       </div>
 

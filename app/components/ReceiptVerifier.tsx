@@ -245,11 +245,16 @@ export function ReceiptVerifier() {
       </div>
       <div className="receipt-grid">
         <div>
-          <h1 id="receipt-title">Don't trust our oracle. Verify the result yourself.</h1>
+          <h1 id="receipt-title">Can you make this fake proof pass?</h1>
           <p className="lead">
-            Click verify to simulate the deployed devnet CPI path against TxOracle. No wallet, no signer,
-            no private key. The browser rebuilds the exact `settle_spike` instruction from the receipt proof.
+            Good proof verifies. One corrupted field fails. Same verifier, same TxOracle, no wallet.
           </p>
+          <div className="falsifiability-line">
+            <span>GOOD PROOF -&gt; TRUE</span>
+            <span>WRONG TIMESTAMP -&gt; TimestampMismatch</span>
+            <span>WRONG STAT -&gt; InvalidStatProof</span>
+            <span>WRONG FIXTURE -&gt; InvalidMainTreeProof</span>
+          </div>
           <div className="hero-actions">
             <button className="primary-button" onClick={verify} disabled={!proof || loading}>
               {loading ? <Loader2 className="spin" size={18} /> : <CheckCircle2 size={18} />}
@@ -269,8 +274,8 @@ export function ReceiptVerifier() {
 
           <div className="tamper-panel">
             <div>
-              <strong>Don&apos;t trust us. Try to break it.</strong>
-              <p>Every other market shows you a green check. Change one field and watch this one fail.</p>
+              <strong>Green checks are easy. Falsifiability is harder.</strong>
+              <p>Change one field. Same verifier. Chain rejects it.</p>
             </div>
             <div className="tamper-actions">
               {tamperOptions.map((option) => (

@@ -1,4 +1,6 @@
 import { Activity, CircleDollarSign, ReceiptText } from "lucide-react";
+import { AuditPacket } from "./components/AuditPacket";
+import { JudgeModeRail } from "./components/JudgeModeRail";
 import { MarketLifecycle } from "./components/MarketLifecycle";
 import { ReceiptVerifier } from "./components/ReceiptVerifier";
 import { ReplayMarket } from "./components/ReplayMarket";
@@ -18,6 +20,7 @@ export default function Home() {
       </nav>
 
       <div className="page-shell">
+        <JudgeModeRail />
         <ReceiptVerifier />
 
         <div className="metrics-row" aria-label="Product highlights">
@@ -35,6 +38,7 @@ export default function Home() {
           <ReplayMarket />
           <MarketLifecycle />
         </div>
+        <AuditPacket />
       </div>
     </main>
   );
