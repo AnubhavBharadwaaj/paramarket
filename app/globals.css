@@ -28,6 +28,152 @@ body {
   letter-spacing: 0;
 }
 
+.cold-open {
+  align-items: center;
+  background:
+    linear-gradient(rgba(53, 219, 166, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 219, 166, 0.04) 1px, transparent 1px),
+    #070d0b;
+  background-size: 56px 56px;
+  color: #f2fbf7;
+  display: grid;
+  min-height: 100vh;
+  overflow: hidden;
+  padding: 28px;
+  place-items: center;
+  position: relative;
+}
+
+.cold-open::before {
+  background: linear-gradient(180deg, rgba(7, 13, 11, 0.04), #070d0b);
+  content: "";
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+}
+
+.cold-mark,
+.cold-skip {
+  position: absolute;
+  z-index: 1;
+}
+
+.cold-mark {
+  align-items: center;
+  display: inline-flex;
+  font-size: 1.05rem;
+  font-weight: 950;
+  gap: 10px;
+  left: 28px;
+  top: 24px;
+}
+
+.cold-mark svg {
+  color: #35dba6;
+}
+
+.cold-skip {
+  background: transparent;
+  border: 0;
+  color: #7f8b85;
+  cursor: pointer;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.85rem;
+  font-weight: 850;
+  right: 28px;
+  top: 28px;
+}
+
+.cold-stage {
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+  max-width: 920px;
+  position: relative;
+  text-align: center;
+  z-index: 1;
+}
+
+.cold-kicker {
+  color: #35dba6;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.82rem;
+  font-weight: 950;
+  text-transform: uppercase;
+}
+
+.cold-stage h1 {
+  color: #fff;
+  font-size: clamp(3.4rem, 8vw, 8.8rem);
+  line-height: 0.9;
+  max-width: 1100px;
+}
+
+.cold-stage p {
+  color: #a8b7af;
+  font-size: clamp(1.05rem, 1.7vw, 1.35rem);
+  line-height: 1.55;
+  max-width: 680px;
+}
+
+.cold-primary,
+.cold-tamper-actions button {
+  align-items: center;
+  border-radius: 8px;
+  cursor: pointer;
+  display: inline-flex;
+  font-weight: 900;
+  gap: 10px;
+  justify-content: center;
+  min-height: 54px;
+  padding: 0 20px;
+}
+
+.cold-primary {
+  background: #35dba6;
+  border: 1px solid #35dba6;
+  color: #06110d;
+  min-width: min(360px, 100%);
+}
+
+.cold-primary:disabled,
+.cold-tamper-actions button:disabled {
+  cursor: wait;
+  opacity: 0.68;
+}
+
+.cold-tamper-actions {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  width: min(820px, 100%);
+}
+
+.cold-tamper-actions button {
+  background: #101816;
+  border: 1px solid rgba(223, 228, 220, 0.15);
+  color: #eef8f3;
+  min-width: 0;
+}
+
+.cold-done .cold-kicker {
+  color: #ff8c63;
+}
+
+.cold-error {
+  background: #35130c;
+  border: 1px solid #b85c33;
+  border-radius: 8px;
+  bottom: 28px;
+  color: #fff4ed;
+  left: 50%;
+  max-width: min(720px, calc(100% - 36px));
+  padding: 12px 14px;
+  position: absolute;
+  transform: translateX(-50%);
+  z-index: 1;
+}
+
 button,
 a {
   font: inherit;
@@ -261,6 +407,79 @@ a {
   gap: 18px;
 }
 
+.proof-contrast {
+  background: linear-gradient(135deg, #111816, #0b120f);
+  border: 1px solid rgba(223, 228, 220, 0.14);
+  border-radius: 8px;
+  color: #eef8f3;
+  display: grid;
+  gap: 12px;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  padding: 18px;
+}
+
+.contrast-side {
+  border: 1px solid rgba(223, 228, 220, 0.13);
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  min-height: 134px;
+  padding: 16px;
+}
+
+.contrast-side span,
+.contrast-line {
+  color: #9ba7a0;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+.contrast-side strong {
+  color: #fff;
+  font-size: clamp(1.35rem, 2.3vw, 2.15rem);
+  line-height: 1;
+}
+
+.contrast-side p {
+  color: #b8c7bf;
+  font-weight: 850;
+  line-height: 1.35;
+}
+
+.ours-state {
+  background: rgba(53, 219, 166, 0.08);
+  border-color: rgba(53, 219, 166, 0.45);
+}
+
+.ours-state span,
+.ours-state p {
+  color: #35dba6;
+}
+
+.field-state {
+  background: rgba(255, 255, 255, 0.035);
+}
+
+.contrast-vs {
+  align-self: center;
+  border: 1px solid rgba(223, 228, 220, 0.15);
+  border-radius: 999px;
+  color: #9ba7a0;
+  font-size: 0.75rem;
+  font-weight: 950;
+  padding: 7px 9px;
+  text-transform: uppercase;
+}
+
+.contrast-line {
+  border-top: 1px solid rgba(223, 228, 220, 0.12);
+  color: #e9fff6;
+  grid-column: 1 / -1;
+  padding-top: 4px;
+}
+
 .command-center {
   align-items: center;
   background:
@@ -450,6 +669,21 @@ a {
   gap: 4px;
 }
 
+.rail-progress {
+  background: rgba(223, 228, 220, 0.13);
+  border-radius: 999px;
+  height: 7px;
+  margin-top: 5px;
+  overflow: hidden;
+}
+
+.rail-progress i {
+  background: #35dba6;
+  display: block;
+  height: 100%;
+  transition: width 220ms ease;
+}
+
 .judge-rail strong {
   font-size: 1rem;
 }
@@ -493,6 +727,16 @@ a {
   justify-content: center;
 }
 
+.judge-rail li.complete {
+  background: rgba(53, 219, 166, 0.1);
+  border-color: rgba(53, 219, 166, 0.42);
+}
+
+.judge-rail li.complete .step-number {
+  background: #35dba6;
+  color: #06110d;
+}
+
 .judge-rail li div {
   display: grid;
   gap: 2px;
@@ -513,6 +757,23 @@ a {
 .receipt-panel {
   min-height: min(680px, calc(100vh - 92px));
   padding: clamp(22px, 4vw, 44px);
+}
+
+.receipt-panel.compact {
+  min-height: auto;
+}
+
+.receipt-panel.compact .receipt-grid {
+  grid-template-columns: 1fr;
+  max-width: 900px;
+}
+
+.receipt-panel.compact h1 {
+  font-size: clamp(2.4rem, 5vw, 5.4rem);
+}
+
+.receipt-panel.compact .source-line {
+  display: none;
 }
 
 .receipt-grid {
@@ -1540,6 +1801,12 @@ pre {
   margin-top: 14px;
 }
 
+.guard-list {
+  color: var(--muted);
+  line-height: 1.45;
+  margin-top: 8px;
+}
+
 .audit-links {
   display: flex;
   flex-wrap: wrap;
@@ -1619,6 +1886,33 @@ pre {
   .terminal-shell > .audit-packet,
   .dashboard-board {
     width: calc(100% - 28px);
+  }
+
+  .cold-open {
+    padding: 20px;
+  }
+
+  .cold-mark {
+    left: 18px;
+    top: 18px;
+  }
+
+  .cold-skip {
+    right: 18px;
+    top: 21px;
+  }
+
+  .cold-stage h1 {
+    font-size: clamp(2.8rem, 15vw, 5.4rem);
+  }
+
+  .cold-tamper-actions,
+  .proof-contrast {
+    grid-template-columns: 1fr;
+  }
+
+  .contrast-vs {
+    justify-self: start;
   }
 
   .command-center,

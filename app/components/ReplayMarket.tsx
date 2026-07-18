@@ -62,7 +62,7 @@ function boothLine(event: ReplayEvent | null) {
   }
   return {
     title: "1-2: outcome locked",
-    body: "Over 2.5 is true. Now the market can settle with the proof instead of a trusted scorekeeper.",
+    body: "This is the state the on-chain proof settles.",
   };
 }
 

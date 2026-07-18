@@ -26,6 +26,7 @@ import {
   type TamperResult,
   type VerifyResult,
 } from "../lib/receiptVerifier";
+import { markProofProgress } from "../lib/proofProgress";
 
 type ProofAsset = Awaited<ReturnType<typeof loadReceiptProof>>;
 
@@ -122,6 +123,7 @@ export function ReceiptVerifier() {
   const sum = proof ? proof.proof.statToProve.value + proof.proof.statToProve2.value : 0;
   const verified = result?.ok === true && !tamperResult;
   const rejected = Boolean(tamperResult);
+  const hasStarted = activeStep >= 0 || Boolean(result) || Boolean(tamperResult) || loading || Boolean(error);
 
   async function verify() {
     if (!proof) return;
@@ -158,6 +160,7 @@ export function ReceiptVerifier() {
       setActiveStep(3);
       const simulation = await simulateReceipt(proof);
       setResult(simulation);
+      if (simulation.returnValue) markProofProgress("verify");
       setActiveStep(4);
       setRevealState(simulation.ok ? "verified" : "failed");
     } catch (err) {
@@ -197,6 +200,8 @@ export function ReceiptVerifier() {
       setActiveStep(3);
       const rejectedProof = await simulateTamperedReceipt(proof, kind);
       setTamperResult(rejectedProof);
+      if (kind === "wrongTimestamp") markProofProgress("timestamp");
+      if (kind === "wrongStatKey") markProofProgress("stat");
       setActiveStep(4);
       setRevealState("failed");
     } catch (err) {
@@ -238,32 +243,17 @@ export function ReceiptVerifier() {
         : "pending";
 
   return (
-    <section className="receipt-panel" id="challenge" aria-labelledby="receipt-title">
+    <section className={`receipt-panel ${hasStarted ? "expanded" : "compact"}`} id="challenge" aria-labelledby="receipt-title">
       <div className="panel-kicker">
         <ShieldCheck size={18} />
         wallet-free receipt verification
       </div>
       <div className="receipt-grid">
         <div>
-          <h1 id="receipt-title">Don&apos;t trust our oracle. Try to break it.</h1>
+          <h1 id="receipt-title">Can you make a fake proof pass? Try.</h1>
           <p className="lead">
-            You are the verifier. First run the real receipt: the browser rebuilds the proof and TxOracle
-            returns true. Then corrupt one field and watch the same wallet-free simulation reject it.
+            One good proof. Three forgeries. Same wallet-free verifier.
           </p>
-          <div className="proof-story-grid" aria-label="What the challenge proves">
-            <div>
-              <strong>1. Verify</strong>
-              <span>Good receipt, real devnet CPI, no signer.</span>
-            </div>
-            <div>
-              <strong>2. Tamper</strong>
-              <span>Wrong timestamp, stat key, or fixture.</span>
-            </div>
-            <div>
-              <strong>3. Inspect</strong>
-              <span>Named guard, slot, CU, and Market PDA evidence.</span>
-            </div>
-          </div>
           <div className="falsifiability-line">
             <span>GOOD PROOF -&gt; TRUE</span>
             <span>WRONG TIMESTAMP -&gt; TimestampMismatch</span>
@@ -281,10 +271,12 @@ export function ReceiptVerifier() {
                 Skip animation
               </button>
             )}
-            <a className="link-button" href={explorerTx(RECEIPT_SETTLEMENT_TX)} target="_blank" rel="noreferrer">
-              Settlement tx
-              <ExternalLink size={16} />
-            </a>
+            {hasStarted && (
+              <a className="link-button" href={explorerTx(RECEIPT_SETTLEMENT_TX)} target="_blank" rel="noreferrer">
+                Settlement tx
+                <ExternalLink size={16} />
+              </a>
+            )}
           </div>
 
           <div className="tamper-panel">
@@ -305,14 +297,14 @@ export function ReceiptVerifier() {
                   <small>{option.description}</small>
                 </button>
               ))}
-              <button className="tamper-button restore" disabled={!proof || loading} onClick={restoreGoodProof} type="button">
+              {hasStarted && <button className="tamper-button restore" disabled={!proof || loading} onClick={restoreGoodProof} type="button">
                 <span>Restore good proof</span>
                 <small>return to VERIFIED</small>
-              </button>
+              </button>}
             </div>
           </div>
         </div>
-        <div className={`proof-reconstruction ${revealState}`}>
+        {hasStarted && <div className={`proof-reconstruction ${revealState}`}>
           <div className="receipt-top" aria-hidden="true" />
           <div className="status-line">
             <span className={verified ? "dot good" : revealState === "failed" ? "dot bad" : "dot"} />
@@ -429,7 +421,7 @@ export function ReceiptVerifier() {
           {loading && activeStep >= 3 && (
             <p className="proof-hint">Simulating validate_stat against TxOracle {TXORACLE_PROGRAM_ID.toBase58().slice(0, 6)}...</p>
           )}
-        </div>
+        </div>}
       </div>
 
       {result && !tamperResult && (

@@ -10,9 +10,12 @@ export function AuditPacket() {
       <div>
         <div className="panel-kicker">
           <FileJson size={18} />
-          audit packet
+          evidence
         </div>
         <h2 id="audit-packet-title">Everything a judge needs to verify the claim.</h2>
+        <p className="guard-list">
+          Guards captured live: TimestampMismatch / InvalidStatProof / InvalidMainTreeProof.
+        </p>
       </div>
       <div className="audit-links">
         <a href="/stage4/receipt-proof.json" target="_blank" rel="noreferrer">

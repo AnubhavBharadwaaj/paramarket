@@ -31,8 +31,8 @@ const cards = [
   {
     href: "/evidence",
     icon: FileJson,
-    kicker: "audit packet",
-    title: "Evidence Packet",
+    kicker: "evidence",
+    title: "Evidence",
     body: "Receipt proof, tx records, PDA links, tamper logs, and deployed-origin verification in one place.",
     stat: "repo durable",
   },
@@ -41,6 +41,21 @@ const cards = [
 export function DashboardOverview() {
   return (
     <div className="dashboard-board">
+      <section className="proof-contrast" aria-label="Proof live contrast">
+        <div className="contrast-side field-state">
+          <span>common posture</span>
+          <strong>88 results decided</strong>
+          <p>settlement DISABLED - proof pending</p>
+        </div>
+        <div className="contrast-vs">vs</div>
+        <div className="contrast-side ours-state">
+          <span>ParaMarket</span>
+          <strong>3 markets settled on-chain</strong>
+          <p>proof LIVE - click to verify - click to forge and watch it fail</p>
+        </div>
+        <div className="contrast-line">Binding finality is the hard part. We bind it and let you attack it.</div>
+      </section>
+
       <section className="command-center">
         <div>
           <div className="workspace-eyebrow">one complete judge loop</div>

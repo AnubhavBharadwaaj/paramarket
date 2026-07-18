@@ -1,3 +1,5 @@
+"use client";
+
 import Link from "next/link";
 import type { ReactNode } from "react";
 import {
@@ -33,12 +35,14 @@ export function DashboardShell({
   active,
   children,
   eyebrow,
+  hideHeading = false,
   title,
   subtitle,
 }: {
   active: string;
   children: ReactNode;
   eyebrow?: string;
+  hideHeading?: boolean;
   title: string;
   subtitle: string;
 }) {
@@ -73,11 +77,13 @@ export function DashboardShell({
         </div>
       </header>
 
-      <section className="workspace-heading">
-        {eyebrow && <div className="workspace-eyebrow">{eyebrow}</div>}
-        <h1>{title}</h1>
-        <p>{subtitle}</p>
-      </section>
+      {!hideHeading && (
+        <section className="workspace-heading">
+          {eyebrow && <div className="workspace-eyebrow">{eyebrow}</div>}
+          <h1>{title}</h1>
+          <p>{subtitle}</p>
+        </section>
+      )}
 
       {children}
     </main>

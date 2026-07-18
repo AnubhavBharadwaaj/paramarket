@@ -15,6 +15,7 @@ import {
   type MarketEvidence,
   type TxStatus,
 } from "../lib/marketEvidence";
+import { markProofProgress } from "../lib/proofProgress";
 
 type MarketStatus = {
   state: DecodedMarketState | null;
@@ -164,6 +165,7 @@ export function MarketLifecycle() {
               accountStatus: state ? "live" : "missing",
             },
           }));
+          if (state) markProofProgress("inspect");
         })
         .catch(() => {
           if (cancelled) return;
