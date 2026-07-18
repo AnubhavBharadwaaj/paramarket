@@ -238,17 +238,32 @@ export function ReceiptVerifier() {
         : "pending";
 
   return (
-    <section className="receipt-panel" aria-labelledby="receipt-title">
+    <section className="receipt-panel" id="challenge" aria-labelledby="receipt-title">
       <div className="panel-kicker">
         <ShieldCheck size={18} />
         wallet-free receipt verification
       </div>
       <div className="receipt-grid">
         <div>
-          <h1 id="receipt-title">Can you make this fake proof pass?</h1>
+          <h1 id="receipt-title">Don&apos;t trust our oracle. Try to break it.</h1>
           <p className="lead">
-            Good proof verifies. One corrupted field fails. Same verifier, same TxOracle, no wallet.
+            You are the verifier. First run the real receipt: the browser rebuilds the proof and TxOracle
+            returns true. Then corrupt one field and watch the same wallet-free simulation reject it.
           </p>
+          <div className="proof-story-grid" aria-label="What the challenge proves">
+            <div>
+              <strong>1. Verify</strong>
+              <span>Good receipt, real devnet CPI, no signer.</span>
+            </div>
+            <div>
+              <strong>2. Tamper</strong>
+              <span>Wrong timestamp, stat key, or fixture.</span>
+            </div>
+            <div>
+              <strong>3. Inspect</strong>
+              <span>Named guard, slot, CU, and Market PDA evidence.</span>
+            </div>
+          </div>
           <div className="falsifiability-line">
             <span>GOOD PROOF -&gt; TRUE</span>
             <span>WRONG TIMESTAMP -&gt; TimestampMismatch</span>

@@ -4,6 +4,7 @@ import { JudgeModeRail } from "./components/JudgeModeRail";
 import { MarketLifecycle } from "./components/MarketLifecycle";
 import { ReceiptVerifier } from "./components/ReceiptVerifier";
 import { ReplayMarket } from "./components/ReplayMarket";
+import { StoryWalkthrough } from "./components/StoryWalkthrough";
 
 export default function Home() {
   return (
@@ -14,14 +15,16 @@ export default function Home() {
           ParaMarket
         </div>
         <div className="nav-pills">
-          <span>devnet</span>
-          <span>proof-settled</span>
+          <a href="#challenge">challenge</a>
+          <a href="#replay">replay</a>
+          <a href="#evidence">evidence</a>
         </div>
       </nav>
 
       <div className="page-shell">
         <JudgeModeRail />
         <ReceiptVerifier />
+        <StoryWalkthrough />
 
         <div className="metrics-row" aria-label="Product highlights">
           <div>

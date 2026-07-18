@@ -35,12 +35,35 @@ function quote(event: ReplayEvent) {
 }
 
 function boothLine(event: ReplayEvent | null) {
-  if (!event) return "Replay Booth is waiting for the match tape.";
+  if (!event) {
+    return {
+      title: "Replay Booth",
+      body: "Waiting for the historical match tape.",
+    };
+  }
   const total = event.score.home + event.score.away;
-  if (total === 0) return "0-0: line still live.";
-  if (total === 1) return "1-0: Over 2.5 pressure rises.";
-  if (total === 2) return "1-1: one more goal resolves.";
-  return "1-2: outcome locked, proof can settle.";
+  if (total === 0) {
+    return {
+      title: "0-0: line still live",
+      body: "Over 2.5 is only a possibility. The price moves on pressure, not proof.",
+    };
+  }
+  if (total === 1) {
+    return {
+      title: "1-0: pressure rises",
+      body: "One goal is in. The market leans toward Over, but Under is still alive.",
+    };
+  }
+  if (total === 2) {
+    return {
+      title: "1-1: one more goal resolves",
+      body: "The line is on the edge. One more score turns the quote into a near-certainty.",
+    };
+  }
+  return {
+    title: "1-2: outcome locked",
+    body: "Over 2.5 is true. Now the market can settle with the proof instead of a trusted scorekeeper.",
+  };
 }
 
 export function ReplayMarket() {
@@ -75,9 +98,10 @@ export function ReplayMarket() {
   const prices = useMemo(() => (event ? quote(event) : [0n, 0n]), [event]);
   const overPct = pct(prices[0]);
   const underPct = pct(prices[1]);
+  const booth = boothLine(event);
 
   return (
-    <section className="replay-panel" aria-labelledby="replay-title">
+    <section className="replay-panel" id="replay" aria-labelledby="replay-title">
       <div className="section-head">
         <div>
           <div className="panel-kicker">
@@ -136,7 +160,8 @@ export function ReplayMarket() {
         </div>
         <div className="replay-booth">
           <strong>Replay Booth</strong>
-          <span>{boothLine(event)}</span>
+          <b>{booth.title}</b>
+          <span>{booth.body}</span>
         </div>
       </div>
 
