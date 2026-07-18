@@ -481,25 +481,33 @@ a {
 }
 
 .command-center {
-  align-items: center;
+  align-items: stretch;
   background:
     radial-gradient(circle at 75% 10%, rgba(31, 207, 154, 0.18), transparent 34%),
     linear-gradient(135deg, #101816, #131c1a);
   border: 1px solid rgba(223, 228, 220, 0.12);
   border-radius: 8px;
   display: grid;
-  gap: 26px;
-  grid-template-columns: minmax(0, 0.86fr) minmax(360px, 1.14fr);
-  min-height: 560px;
+  gap: clamp(20px, 3vw, 34px);
+  grid-template-columns: minmax(330px, 0.86fr) minmax(420px, 1fr);
+  min-height: 540px;
   overflow: hidden;
   padding: clamp(22px, 4vw, 46px);
 }
 
+.command-center > div:first-child {
+  align-self: center;
+  min-width: 0;
+  position: relative;
+  z-index: 2;
+}
+
 .command-center h2 {
   color: #fff;
-  font-size: clamp(2.2rem, 4.4vw, 5.2rem);
-  line-height: 0.96;
+  font-size: clamp(2.4rem, 4vw, 4.75rem);
+  line-height: 0.98;
   margin-top: 16px;
+  max-width: 720px;
 }
 
 .command-center p {
@@ -507,7 +515,7 @@ a {
   font-size: 1.08rem;
   line-height: 1.55;
   margin: 18px 0 26px;
-  max-width: 620px;
+  max-width: 560px;
 }
 
 .dashboard-board .judge-rail {
@@ -993,46 +1001,101 @@ h2 {
   line-height: 1.45;
 }
 
-.proof-story-scene {
-  height: min(560px, 68vh);
-  min-height: 360px;
+.football-proof-scene {
+  align-self: stretch;
+  background:
+    radial-gradient(circle at 55% 14%, rgba(53, 219, 166, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.015));
+  border: 1px solid rgba(223, 228, 220, 0.12);
+  border-radius: 8px;
+  min-height: 440px;
+  overflow: hidden;
   position: relative;
   z-index: 1;
 }
 
-.proof-story-scene canvas {
+.scene-viewport {
+  height: 100%;
+  min-height: 440px;
+  width: 100%;
+}
+
+.scene-viewport canvas {
   display: block;
   height: 100%;
   width: 100%;
 }
 
-.scene-label {
-  background: rgba(11, 21, 18, 0.8);
-  border: 1px solid rgba(54, 220, 167, 0.28);
-  border-radius: 999px;
-  color: #e9fff6;
+.match-scorecard,
+.scene-proof-card,
+.scene-replay-button {
+  position: absolute;
+  z-index: 2;
+}
+
+.match-scorecard,
+.scene-proof-card {
+  background: rgba(7, 13, 11, 0.84);
+  border: 1px solid rgba(53, 219, 166, 0.28);
+  border-radius: 8px;
+  display: grid;
+  gap: 5px;
+  padding: 12px;
+}
+
+.match-scorecard {
+  left: 16px;
+  top: 16px;
+  width: min(280px, calc(100% - 32px));
+}
+
+.scene-proof-card {
+  bottom: 16px;
+  right: 16px;
+  min-width: 160px;
+}
+
+.match-scorecard span,
+.scene-proof-card span {
+  color: #35dba6;
   font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
   font-size: 0.72rem;
-  font-weight: 850;
-  letter-spacing: 0;
-  padding: 8px 10px;
-  position: absolute;
+  font-weight: 900;
   text-transform: uppercase;
 }
 
-.scene-label-left {
-  left: 8%;
-  top: 19%;
+.match-scorecard strong,
+.scene-proof-card strong {
+  color: #fff;
+  line-height: 1.1;
 }
 
-.scene-label-root {
-  right: 6%;
-  top: 18%;
+.match-scorecard em {
+  color: #b8d4cb;
+  font-style: normal;
+  font-weight: 800;
 }
 
-.scene-label-bad {
-  bottom: 18%;
-  right: 9%;
+.scene-proof-card strong {
+  color: #35dba6;
+  text-transform: uppercase;
+}
+
+.scene-replay-button {
+  align-items: center;
+  background: rgba(53, 219, 166, 0.14);
+  border: 1px solid rgba(53, 219, 166, 0.34);
+  border-radius: 999px;
+  bottom: 16px;
+  color: #e9fff6;
+  cursor: pointer;
+  display: inline-flex;
+  font-size: 0.82rem;
+  font-weight: 900;
+  gap: 7px;
+  left: 16px;
+  min-height: 38px;
+  padding: 0 12px;
 }
 
 .status-line {
@@ -1926,6 +1989,10 @@ pre {
     min-height: auto;
   }
 
+  .command-center h2 {
+    font-size: clamp(2.15rem, 11vw, 3.9rem);
+  }
+
   .workspace-card {
     min-height: 190px;
   }
@@ -1959,13 +2026,26 @@ pre {
     min-height: auto;
   }
 
-  .proof-story-scene {
-    height: 380px;
-    min-height: 320px;
+  .football-proof-scene,
+  .scene-viewport {
+    min-height: 360px;
   }
 
-  .scene-label {
-    font-size: 0.62rem;
+  .match-scorecard {
+    left: 12px;
+    top: 12px;
+    width: calc(100% - 24px);
+  }
+
+  .scene-proof-card {
+    bottom: 64px;
+    left: 12px;
+    right: auto;
+  }
+
+  .scene-replay-button {
+    bottom: 14px;
+    left: 12px;
   }
 
   .predicate-strip,

@@ -59,10 +59,10 @@ export function DashboardOverview() {
       <section className="command-center">
         <div>
           <div className="workspace-eyebrow">one complete judge loop</div>
-          <h2>Don&apos;t scroll a brochure. Open a workspace.</h2>
+          <h2>Watch a market prove itself.</h2>
           <p>
-            ParaMarket is split into the same pieces a judge needs to inspect: proof challenge, replay,
-            live market state, and durable evidence. Each screen has one job.
+            A goal locks the line, the receipt appears, and the same verifier lets you break a fake proof.
+            Start with the challenge, then inspect the chain state.
           </p>
           <Link className="primary-button" href="/challenge">
             Start the challenge <ArrowRight size={17} />
