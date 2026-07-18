@@ -17,7 +17,7 @@ import { markProofProgress } from "../lib/proofProgress";
 type ProofAsset = Awaited<ReturnType<typeof loadReceiptProof>>;
 type ColdScreen = "verify" | "break" | "done";
 
-const storageKey = "paramarket-cold-open-complete";
+const storageKey = "paramarket-cold-open-complete-v2";
 
 const tamperButtons: Array<{ kind: TamperKind; label: string }> = [
   { kind: "wrongTimestamp", label: "Wrong timestamp" },
@@ -39,6 +39,9 @@ function ColdOpen({ onDone }: { onDone: () => void }) {
 
   function finish() {
     window.localStorage.setItem(storageKey, "true");
+    if (window.location.search.includes("intro=1")) {
+      window.history.replaceState(null, "", "/");
+    }
     onDone();
   }
 
@@ -133,6 +136,12 @@ export function HomeExperience() {
   const [showBoard, setShowBoard] = useState<boolean | null>(null);
 
   useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get("intro") === "1") {
+      window.localStorage.removeItem(storageKey);
+      setShowBoard(false);
+      return;
+    }
     setShowBoard(window.localStorage.getItem(storageKey) === "true");
   }, []);
 

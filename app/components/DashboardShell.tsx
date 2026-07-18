@@ -14,6 +14,7 @@ import {
 
 const navItems = [
   { href: "/", label: "Board", key: "board", icon: LayoutDashboard },
+  { href: "/?intro=1", label: "Intro", key: "intro", icon: Activity },
   { href: "/challenge", label: "Challenge", key: "challenge", icon: ReceiptText },
   { href: "/replay", label: "Replay", key: "replay", icon: TrendingUp },
   { href: "/markets", label: "Markets", key: "markets", icon: DatabaseZap },

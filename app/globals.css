@@ -663,6 +663,33 @@ a {
   box-shadow: var(--shadow);
 }
 
+.receipt-panel,
+.replay-panel,
+.lifecycle-panel,
+.audit-packet {
+  color: var(--ink);
+}
+
+.receipt-panel h1,
+.receipt-panel h2,
+.replay-panel h1,
+.replay-panel h2,
+.lifecycle-panel h1,
+.lifecycle-panel h2,
+.audit-packet h1,
+.audit-packet h2 {
+  color: #18201d;
+}
+
+.receipt-panel .panel-kicker,
+.replay-panel .panel-kicker,
+.lifecycle-panel .panel-kicker,
+.audit-packet .panel-kicker {
+  background: rgba(15, 122, 95, 0.04);
+  border-color: #cfd9d1;
+  color: #4d5a53;
+}
+
 .judge-rail {
   align-items: center;
   display: grid;
@@ -1599,12 +1626,13 @@ pre {
 }
 
 .price-label {
-  color: var(--muted);
+  color: #4f5c55;
   font-size: 0.88rem;
   font-weight: 800;
 }
 
 .price-value {
+  color: #18201d;
   font-size: 2rem;
   font-weight: 850;
   margin: 4px 0 8px;
@@ -1758,7 +1786,7 @@ pre {
 }
 
 .market-state-head span {
-  color: var(--muted);
+  color: #4f5c55;
   font-size: 0.84rem;
 }
 
@@ -1802,6 +1830,7 @@ pre {
 }
 
 .state-grid dd {
+  color: #18201d;
   font-weight: 850;
 }
 
@@ -1828,9 +1857,13 @@ pre {
 }
 
 .pool-list span {
-  color: var(--muted);
+  color: #4f5c55;
   font-size: 0.86rem;
   font-weight: 800;
+}
+
+.pool-list strong {
+  color: #18201d;
 }
 
 .account-links,
