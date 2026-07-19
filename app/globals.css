@@ -1003,6 +1003,51 @@ h2 {
   max-width: 680px;
 }
 
+.story-screen-compact {
+  align-items: center;
+  gap: clamp(18px, 2.5vw, 30px);
+  grid-template-columns: minmax(0, 0.86fr) minmax(340px, 1fr);
+  min-height: auto;
+  padding: clamp(20px, 2.5vw, 30px);
+}
+
+.story-screen-compact .story-copy h2 {
+  font-size: clamp(2rem, 3.2vw, 3.5rem);
+  margin-top: 16px;
+  max-width: 560px;
+}
+
+.story-screen-compact .story-copy p {
+  font-size: clamp(0.95rem, 1vw, 1.02rem);
+  margin-top: 14px;
+  max-width: 560px;
+}
+
+.story-screen-compact .story-beats {
+  gap: 8px;
+  margin-top: 18px;
+}
+
+.story-screen-compact .story-beats article {
+  gap: 6px;
+  min-height: 108px;
+  padding: 12px;
+}
+
+.story-screen-compact .story-beats span {
+  font-size: 0.82rem;
+  line-height: 1.36;
+}
+
+.story-screen-compact .football-proof-scene {
+  height: min(34vw, 380px);
+  min-height: 320px;
+}
+
+.story-screen-compact .scene-viewport {
+  min-height: 320px;
+}
+
 .story-beats {
   display: grid;
   gap: 10px;
@@ -2063,6 +2108,12 @@ pre {
 
   .story-screen {
     min-height: auto;
+  }
+
+  .story-screen-compact .football-proof-scene,
+  .story-screen-compact .scene-viewport {
+    height: auto;
+    min-height: 320px;
   }
 
   .football-proof-scene,

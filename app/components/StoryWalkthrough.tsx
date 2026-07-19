@@ -24,15 +24,18 @@ const beats = [
   },
 ];
 
-export function StoryWalkthrough() {
+export function StoryWalkthrough({ compact = false }: { compact?: boolean }) {
   return (
-    <section className="story-screen" aria-labelledby="story-title">
+    <section className={compact ? "story-screen story-screen-compact" : "story-screen"} aria-labelledby="story-title">
       <div className="story-copy">
         <div className="panel-kicker">the proof story</div>
-        <h2 id="story-title">Verify it. Break it. Then inspect what survived on-chain.</h2>
+        <h2 id="story-title">
+          {compact ? "Proofs live. Forgery fails." : "Verify it. Break it. Then inspect what survived on-chain."}
+        </h2>
         <p>
-          The first click proves the real receipt. The second click tries to cheat. ParaMarket makes verification
-          falsifiable: the judge can prove the receipt is real by proving the fake ones fail.
+          {compact
+            ? "The same wallet-free verifier proves the good receipt and rejects corrupted timestamp, stat key, or fixture inputs."
+            : "The first click proves the real receipt. The second click tries to cheat. ParaMarket makes verification falsifiable: the judge can prove the receipt is real by proving the fake ones fail."}
         </p>
         <div className="story-beats">
           {beats.map((beat) => {

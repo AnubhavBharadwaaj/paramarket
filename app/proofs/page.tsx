@@ -10,7 +10,7 @@ export default function ProofsPage() {
       title="The trust path, reconstructed."
       subtitle="A visual map of receipt proof, daily root PDA, TxOracle simulation, and fail-closed tamper rejection."
     >
-      <StoryWalkthrough />
+      <StoryWalkthrough compact />
       <AuditPacket />
     </DashboardShell>
   );
