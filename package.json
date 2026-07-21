@@ -1,7 +1,7 @@
 {
   "name": "txline-agent",
   "version": "0.1.0",
-  "description": "Autonomous trading agent driving TxLINE's native trade primitives — TxODDS World Cup Hackathon, Trading Tools & Agents track",
+  "description": "Proof-settled parametric prediction markets on TxLINE devnet",
   "type": "module",
   "scripts": {
     "dev": "next dev",

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, BadgeCheck, DatabaseZap, FileJson, ReceiptText, TrendingUp } from "lucide-react";
 import { JudgeModeRail } from "./JudgeModeRail";
 import { ProofStoryScene } from "./ProofStoryScene";
+import { FieldScan } from "./FieldScan";
 
 const cards = [
   {
@@ -136,6 +137,8 @@ export function DashboardOverview() {
           </div>
         </article>
       </section>
+
+      <FieldScan />
     </div>
   );
 }

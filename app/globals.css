@@ -596,6 +596,101 @@ a {
   grid-template-columns: 1.2fr 0.8fr;
 }
 
+.field-scan {
+  background: #121916;
+  border: 1px solid rgba(223, 228, 220, 0.12);
+  border-radius: 8px;
+  color: #eaf5ef;
+  display: grid;
+  gap: 18px;
+  padding: 18px;
+}
+
+.terminal-shell > .field-scan {
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 1180px;
+  width: calc(100% - 48px);
+}
+
+.field-scan .panel-kicker {
+  background: transparent;
+  border-color: rgba(223, 228, 220, 0.12);
+  color: #35dba6;
+  display: inline-flex;
+  justify-self: start;
+}
+
+.field-scan-head {
+  align-items: end;
+  display: grid;
+  gap: 14px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(280px, 0.65fr);
+}
+
+.field-scan h2 {
+  color: #fff;
+  font-size: clamp(1.55rem, 2.4vw, 2.35rem);
+  max-width: 760px;
+}
+
+.field-scan-head p {
+  color: #9ba7a0;
+  line-height: 1.5;
+}
+
+.field-feature-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.field-feature {
+  background: #0d1412;
+  border: 1px solid rgba(53, 219, 166, 0.22);
+  border-radius: 8px;
+  display: grid;
+  gap: 8px;
+  min-height: 178px;
+  padding: 14px;
+}
+
+.field-feature > div {
+  align-items: center;
+  color: #35dba6;
+  display: flex;
+  font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  gap: 7px;
+  text-transform: uppercase;
+}
+
+.field-feature strong {
+  color: #fff;
+  font-size: 1rem;
+  line-height: 1.15;
+}
+
+.field-feature small {
+  color: #7f8b85;
+  font-weight: 800;
+}
+
+.field-feature p {
+  color: #aebcb4;
+  font-size: 0.9rem;
+  line-height: 1.42;
+}
+
+.field-feature.skipped {
+  border-color: rgba(223, 228, 220, 0.12);
+}
+
+.field-feature.skipped > div {
+  color: #a6b2ac;
+}
+
 .mini-panel {
   background: #121916;
   border: 1px solid rgba(223, 228, 220, 0.12);
@@ -2031,6 +2126,7 @@ pre {
   .terminal-shell > .lifecycle-panel,
   .terminal-shell > .story-screen,
   .terminal-shell > .audit-packet,
+  .terminal-shell > .field-scan,
   .dashboard-board {
     width: calc(100% - 28px);
   }
@@ -2065,6 +2161,8 @@ pre {
   .command-center,
   .workspace-cards,
   .board-lower-grid,
+  .field-scan-head,
+  .field-feature-grid,
   .mini-stats {
     grid-template-columns: 1fr;
   }
@@ -2079,6 +2177,10 @@ pre {
 
   .workspace-card {
     min-height: 190px;
+  }
+
+  .field-feature {
+    min-height: auto;
   }
 
   .topbar {
